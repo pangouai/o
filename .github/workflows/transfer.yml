@@ -1,4 +1,4 @@
-name: OneDrive to OneDrive (Resume Safe)
+name: OneDrive to OneDrive (Stable Large Files)
 
 on:
   workflow_dispatch:
@@ -32,8 +32,10 @@ jobs:
             ndja:/ \
             n2:/ \
             --progress \
-            --transfers=1 \
-            --checkers=2 \
-            --tpslimit=2 \
+            --transfers=4 \
+            --checkers=6 \
+            --tpslimit=6 \
+            --drive-chunk-size=128M \
+            --multi-thread-streams=4 \
             --retries 20 \
             --low-level-retries 50
