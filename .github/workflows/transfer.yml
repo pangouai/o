@@ -1,1 +1,26 @@
+name: OneDrive to OneDrive Transfer
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * *'
+
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install rclone
+      run: curl https://rclone.org/install.sh | sudo bash
+
+    - name: Setup rclone config
+      run: |
+        mkdir -p ~/.config/rclone
+        echo "${{ secrets.RCLONE_CONF }}" > ~/.config/rclone/rclone.conf
+
+    - name: OneDrive to OneDrive
+      run: |
+        rclone copy od_src:/ od_dst:/Backup --progress --transfers=4 --checkers=8 --tpslimit=8 --drive-chunk-size=64M
 
