@@ -1,13 +1,14 @@
-name: OneDrive to OneDrive Transfer
+name: OneDrive to OneDrive (Resume Safe)
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '0 */6 * * *'   # 每 6 小时跑一次（刚好卡上限）
 
 jobs:
   transfer:
     runs-on: ubuntu-latest
+    timeout-minutes: 350    # 提前 10 分钟退出，防止被强杀
 
     steps:
     - uses: actions/checkout@v4
@@ -20,7 +21,16 @@ jobs:
         mkdir -p ~/.config/rclone
         echo "${{ secrets.RCLONE_CONF }}" > ~/.config/rclone/rclone.conf
 
-    - name: OneDrive to OneDrive
+    - name: Resume-safe transfer
       run: |
-        rclone copy od_src:/ od_dst:/Backup --progress --transfers=4 --checkers=8 --tpslimit=8 --drive-chunk-size=64M
-
+        rclone copy \
+          od_src:/ \
+          od_dst:/Backup \
+          --progress \
+          --transfers=2 \
+          --checkers=4 \
+          --drive-chunk-size=64M \
+          --tpslimit=4 \
+          --retries 10 \
+          --low-level-retries 20 \
+          --log-level INFO
