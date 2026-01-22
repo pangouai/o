@@ -3,34 +3,37 @@ name: OneDrive to OneDrive (Resume Safe)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'   # 每 6 小时跑一次（刚好卡上限）
+    - cron: '0 */6 * * *'
 
 jobs:
   transfer:
     runs-on: ubuntu-latest
-    timeout-minutes: 350    # 提前 10 分钟退出，防止被强杀
+    timeout-minutes: 350
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install rclone
-      run: curl https://rclone.org/install.sh | sudo bash
+      - name: Install rclone
+        run: curl https://rclone.org/install.sh | sudo bash
 
-    - name: Setup rclone config
-      run: |
-        mkdir -p ~/.config/rclone
-        echo "${{ secrets.RCLONE_CONF }}" > ~/.config/rclone/rclone.conf
+      - name: Setup rclone config
+        run: |
+          mkdir -p ~/.config/rclone
+          cat << 'EOF' > ~/.config/rclone/rclone.conf
+          ${{ secrets.RCLONE_CONF }}
+          EOF
 
-    - name: Resume-safe transfer
-      run: |
-        rclone copy \
-          ndja:/ \
-          n2:/ \
-          --progress \
-          --transfers=2 \
-          --checkers=4 \
-          --drive-chunk-size=64M \
-          --tpslimit=4 \
-          --retries 10 \
-          --low-level-retries 20 \
-          --log-level INFO
+      - name: Check remotes
+        run: rclone listremotes
+
+      - name: OneDrive to OneDrive
+        run: |
+          rclone copy \
+            ndja:/ \
+            n2:/ \
+            --progress \
+            --transfers=1 \
+            --checkers=2 \
+            --tpslimit=2 \
+            --retries 20 \
+            --low-level-retries 50
