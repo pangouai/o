@@ -43,7 +43,7 @@ jobs:
             SRC=$(rclone size ndja:/ | grep "Total size" | awk '{print $3" "$4}')
             DST=$(rclone size n2:/ | grep "Total size" | awk '{print $3" "$4}')
 
-            MSG="📦 OneDrive 转存进度\n源盘总量: ${SRC}\n已完成: ${DST}\n状态: 运行中"
+            MSG="OneDrive转存进度 | 源盘:${SRC} | 已完成:${DST} | 状态:运行中"
 
             curl -s -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
               -d chat_id="${TG_CHAT_ID}" \
