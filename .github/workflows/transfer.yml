@@ -24,8 +24,8 @@ jobs:
     - name: Resume-safe transfer
       run: |
         rclone copy \
-          od_src:/ \
-          od_dst:/Backup \
+          ndja:/ \
+          n2:/ \
           --progress \
           --transfers=2 \
           --checkers=4 \
