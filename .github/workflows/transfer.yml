@@ -1,4 +1,4 @@
-name: OneDrive to OneDrive
+name: OneDrive to OneDrive (Stable Large Files)
 
 on:
   workflow_dispatch:
@@ -11,8 +11,7 @@ jobs:
     timeout-minutes: 350
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install rclone
         run: curl https://rclone.org/install.sh | sudo bash
@@ -20,19 +19,23 @@ jobs:
       - name: Setup rclone config
         run: |
           mkdir -p ~/.config/rclone
-          cat > ~/.config/rclone/rclone.conf << 'EOF'
+          cat << 'EOF' > ~/.config/rclone/rclone.conf
           ${{ secrets.RCLONE_CONF }}
           EOF
 
       - name: Check remotes
         run: rclone listremotes
 
-      - name: OneDrive copy
+      - name: OneDrive to OneDrive
         run: |
-          rclone copy ndja:/ n2:/ \
-            --transfers=2 \
-            --checkers=4 \
-            --tpslimit=4 \
+          rclone copy \
+            ndja:/ \
+            n2:/ \
+            --progress \
+            --transfers=4 \
+            --checkers=8 \
+            --tpslimit=8 \
+            --drive-chunk-size=128M \
+            --multi-thread-streams=4 \
             --retries 20 \
-            --low-level-retries 50 \
-            --stats=0
+            --low-level-retries 50
