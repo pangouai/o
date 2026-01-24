@@ -33,7 +33,7 @@ jobs:
             n2:/ \
             --progress \
             --transfers=2 \
-            --checkers=8 \
+            --checkers=4 \
             --tpslimit=10 \
             --retries 20 \
             --low-level-retries 50
