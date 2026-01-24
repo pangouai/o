@@ -32,11 +32,10 @@ jobs:
             ndja:/ \
             n2:/ \
             --progress \
-            --transfers=3 \
+            --transfers=4 \
             --checkers=8 \
             --tpslimit=10 \
             --drive-chunk-size=64M \
-            --buffer-size=128M \
             --multi-thread-streams=4 \
             --multi-thread-cutoff=64M \
             --retries 30 \
