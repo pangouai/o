@@ -32,7 +32,7 @@ jobs:
             ndja:/ \
             n2:/ \
             --progress \
-            --transfers=2 \
+            --transfers=3 \
             --checkers=8 \
             --tpslimit=8 \
             --drive-chunk-size=128M \
