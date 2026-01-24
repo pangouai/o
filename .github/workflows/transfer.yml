@@ -35,8 +35,5 @@ jobs:
             --transfers=4 \
             --checkers=8 \
             --tpslimit=10 \
-            --drive-chunk-size=64M \
-            --multi-thread-streams=4 \
-            --multi-thread-cutoff=64M \
-            --retries 30 \
-            --low-level-retries 100
+            --retries 20 \
+            --low-level-retries 50
