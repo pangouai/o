@@ -31,6 +31,8 @@ jobs:
           rclone copy \
             ndja:/ \
             n2:/ \
-            --progress
+            --progress \
+            --create-empty-src-dirs \
             --transfers=4 \
+            --onedrive-chunk-size=200M \
             --low-level-retries 30
