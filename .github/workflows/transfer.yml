@@ -34,5 +34,6 @@ jobs:
             --progress \
             --create-empty-src-dirs \
             --transfers=4 \
+            --multi-thread-streams=8 \
             --onedrive-chunk-size=200M \
             --low-level-retries 30
