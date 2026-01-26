@@ -33,5 +33,4 @@ jobs:
             n2:/ \
             --progress
             --transfers=4 \
-            --onedrive-chunk-size=200M \
             --low-level-retries 30
