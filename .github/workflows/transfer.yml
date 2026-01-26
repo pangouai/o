@@ -33,7 +33,7 @@ jobs:
             n2:/ \
             --progress \
             --create-empty-src-dirs \
-            --transfers=3 \
-            --multi-thread-streams=6 \
-            --onedrive-chunk-size=200M \
+            --transfers=4 \
+            --multi-thread-streams=4 \
+            --onedrive-chunk-size=128M \
             --low-level-retries 30
