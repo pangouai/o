@@ -32,7 +32,6 @@ jobs:
             ndja:/ \
             n2:/ \
             --progress
-            --transfers=3 \
-            --checkers=4 \
+            --transfers=4 \
             --onedrive-chunk-size=200M \
             --low-level-retries 30
