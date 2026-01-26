@@ -31,12 +31,9 @@ jobs:
           rclone copy \
             ndja:/ \
             n2:/ \
-            --progress \
-            --ignore-existing \
             --transfers=3 \
-            --checkers=6 \
+            --checkers=4 \
             --tpslimit=6 \
             --multi-thread-streams=4 \
-            --fast-list \
             --onedrive-chunk-size=100M \
             --low-level-retries 30
