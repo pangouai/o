@@ -36,8 +36,7 @@ jobs:
             --transfers=3 \
             --checkers=6 \
             --tpslimit=6 \
-            --multi-thread-streams=8 \
+            --multi-thread-streams=4 \
             --fast-list \
-            --onedrive-chunk-size=200M \
-            --low-level-retries 30 \
-            --stats=60s
+            --onedrive-chunk-size=100M \
+            --low-level-retries 30
