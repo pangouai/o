@@ -3,7 +3,7 @@ name: OneDrive to OneDrive (Stable Large Files)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 19,1,7,13 * * *'
+    - cron: '0 */6 * * *'
 
 jobs:
   transfer:
@@ -32,5 +32,12 @@ jobs:
             ndja:/ \
             n2:/ \
             --progress \
-            --transfers=4 \
-            --low-level-retries 50
+            --ignore-existing \
+            --transfers=3 \
+            --checkers=6 \
+            --tpslimit=6 \
+            --multi-thread-streams=8 \
+            --fast-list \
+            --onedrive-chunk-size=200M \
+            --low-level-retries 30 \
+            --stats=60s
