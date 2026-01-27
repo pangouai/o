@@ -34,5 +34,5 @@ jobs:
             --progress \
             --create-empty-src-dirs \
             --transfers=4 \
-            --stats=60s \
+            --stats=30s \
             --low-level-retries 30
