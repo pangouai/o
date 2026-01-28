@@ -1,9 +1,7 @@
-name: OneDrive to OneDrive (Stable Large Files)
+name: OneDrive Transfer
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */6 * * *'
 
 jobs:
   transfer:
@@ -23,16 +21,10 @@ jobs:
           ${{ secrets.RCLONE_CONF }}
           EOF
 
-      - name: Check remotes
-        run: rclone listremotes
-
       - name: OneDrive to OneDrive
         run: |
-          rclone copy \
-            ndja:/ \
-            n2:/ \
+          rclone copy ndja:/ n2:/ \
             --progress \
-            --create-empty-src-dirs \
             --transfers=4 \
             --stats=30s \
-            --low-level-retries 30
+            --low-level-retries=10
